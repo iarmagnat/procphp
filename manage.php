@@ -21,10 +21,15 @@ include 'nav.php'
 
 <h1>Welcome to the super store <?= (isConnected()) ? $_SESSION['user'] : '' ?>!</h1>
 
-<div class="tile-wrapper">
+<form class="editor" method="post"></form>
+
+<div class="list-wrapper">
     <?php
     foreach ($products as $product) {
-        productTile($product);
+        ?>
+
+    <?php
+
     }
     ?>
 </div>

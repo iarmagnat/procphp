@@ -1,0 +1,10 @@
+.tile-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+}

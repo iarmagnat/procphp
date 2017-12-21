@@ -3,5 +3,6 @@
   "price": 5000,
   "sku": 1,
   "description" : "I am a cute kitty, please love me",
-  "image": "gingerkitten.jpg"
+  "image": "gingerkitten.jpg",
+  "active": true
 }

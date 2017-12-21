@@ -1,0 +1,8 @@
+{
+  "name": "Red cat",
+  "price": 5000,
+  "sku": 2,
+  "description" : "I am another cute kitty, please love me too",
+  "image": "gingerkitten.jpg",
+  "active": true
+}
