@@ -1,12 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+main {
+    padding: 10px;
+}
+
 .tile-wrapper {
     display: flex;
     flex-wrap: wrap;
+    padding: 0 20px;
+    justify-content: space-around;
 }
 
 .tile {
     display: flex;
     flex-direction: column;
     flex: 0;
+    border: 1px solid darkcyan;
+    border-radius: 15px;
+    width: 350px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    transition: box-shadow 0.4s;
+}
+
+.tile:hover {
+    box-shadow: #7b7b7b 0 5px 15px 2px;
+}
+
+.tile img {
+    width: 330px;
+    margin: 0 10px;
+}
+
+.tile form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .manage-block {
@@ -14,4 +50,42 @@
     align-items: center;
     justify-content: space-around;
     width: 500px;
+}
+
+nav {
+    background-color: darkcyan;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0;
+    padding: 20px 0;
+    box-shadow: #000000 0 1px 5px 1px;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+fieldset {
+    border: 0;
+}
+
+.editor {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+tr {
+    border-bottom: 1px solid darkcyan;
 }

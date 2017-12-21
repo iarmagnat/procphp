@@ -25,25 +25,27 @@ if (isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <title>Login to store</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
-
 <?php
 include 'nav.php'
 ?>
 
+<main>
 
-<h1>Login</h1>
+    <h1>Login</h1>
 
-<?= (isset($msg)) ? $msg : '' ?>
+    <?= (isset($msg)) ? $msg : '' ?>
 
-<form method="post">
-    <input type="text" name="login" placeholder="Login">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Login!">
-</form>
+    <form method="post">
+        <input type="text" name="login" placeholder="Login">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" value="Login!">
+    </form>
 
-<p>You don't have an account? <a href="/register.php">Register?</a></p>
+    <p>You don't have an account? <a href="/register.php">Register?</a></p>
 
+</main>
 </body>
 </html>

@@ -29,17 +29,19 @@ if (isset($_POST['login'])) {
 include 'nav.php'
 ?>
 
-<h1>Register?</h1>
+<main>
 
-<?= (isset($msg)) ? $msg : '' ?>
+    <h1>Register?</h1>
 
-<form method="post">
-    <input type="text" name="login" placeholder="Login">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Register!">
-</form>
+    <?= (isset($msg)) ? $msg : '' ?>
 
+    <form method="post">
+        <input type="text" name="login" placeholder="Login">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" value="Register!">
+    </form>
 
+</main>
 </body>
 </html>
 

@@ -6,7 +6,7 @@ function productTile($product)
     <article class="tile">
         <h3><?= $product['name'] ?></h3>
         <img src="/images/<?= $product['image'] ?>" alt="<?= $product['name'] ?>">
-        <b><?= $product['price'] / 100 ?></b>
+        <b><?= $product['price'] / 100 ?> $</b>
         <p><?= $product['description'] ?></p>
         <form action="/cart.php" method="post">
             <input type="hidden" value="<?= $product['sku'] ?>" name="sku">

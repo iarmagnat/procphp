@@ -19,7 +19,7 @@ $products = getProducts();
 include 'nav.php'
 ?>
 
-<h1>Welcome to the super store <?= (isConnected()) ? $_SESSION['user'] : '' ?>!</h1>
+<h1>Welcome to the super store<?= (isConnected()) ? ', ' . $_SESSION['user'] : '' ?>!</h1>
 
 <div class="tile-wrapper">
     <?php

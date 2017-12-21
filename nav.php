@@ -3,6 +3,18 @@
         <li>
             <a href="/">Home</a>
         </li>
+        <li>
+            <a href="/cart.php">Cart</a>
+        </li>
+        <?php
+        if (isAdmin()) {
+            ?>
+            <li>
+                <a href="/manage.php">Manage products</a>
+            </li>
+            <?php
+        }
+        ?>
         <?php
         if (!isConnected()) {
             ?>
@@ -16,19 +28,6 @@
                 <a href="/logout.php">Logout</a>
             </li>
             <?php
-        }
-        ?>
-        <li>
-            <a href="/cart.php">Cart</a>
-        </li>
-        <?php
-        if (isAdmin()) {
-            ?>
-            <li>
-                <a href="/manage.php">Manage products</a>
-            </li>
-            <?php
-
         }
         ?>
     </ul>

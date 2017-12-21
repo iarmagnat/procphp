@@ -37,6 +37,15 @@ if (isset($_GET['sku'])) {
     $product = loadProduct($_GET['sku']);
 }
 
+$imagesDir = scandir('./images');
+$images = [];
+
+foreach ($imagesDir as $image) {
+    if (preg_match('/^.*(\.jpg|\.png|\.svg|\.gif)$/', $image)) {
+        $images[] = $image;
+    }
+}
+
 $products = getProducts(false);
 ?>
 
@@ -53,48 +62,65 @@ $products = getProducts(false);
 include 'nav.php'
 ?>
 
+<main>
 
-<h1>Edit and create products.</h1>
+    <h1>Edit and create products.</h1>
 
-<?= $msg ?>
+    <?= $msg ?>
 
-<form class="editor" method="post" action="manage.php">
-    <input type="text" name="name" placeholder="Product name" value="<?= ($editProduct) ? $product['name'] : '' ?>">
-    <textarea name="description" cols="30" rows="10"
-              placeholder="description"><?= ($editProduct) ? $product['description'] : '' ?></textarea>
-    <input type="text" name="image" placeholder="image" value="<?= ($editProduct) ? $product['image'] : '' ?>">
-    <input type="text" name="price" placeholder="price" value="<?= ($editProduct) ? $product['price'] / 100 : '' ?>">
+    <form class="editor" method="post" action="manage.php">
+        <input type="text" name="name" placeholder="Product name" value="<?= ($editProduct) ? $product['name'] : '' ?>">
+        <textarea name="description" cols="30" rows="5"
+                  placeholder="description"><?= ($editProduct) ? $product['description'] : '' ?></textarea>
 
-    <?php
-    if ($editProduct) {
-        ?>
-        <input type="hidden" name="sku" value="<?= $product['sku'] ?>">
+        <select name="image">
+            <option disabled <?= ($editProduct) ? '' : 'selected' ?>>Image</option>
+            <?php
+            foreach ($images as $image) {
+                ?>
+                <option value="<?= $image ?>" <?= ($editProduct && $image == $product['image']) ? 'selected' : '' ?> >
+                    <?= $image ?>
+                </option>
+                <?php
+            }
+            ?>
+        </select>
+
+
+        <input type="text" name="price" placeholder="price"
+               value="<?= ($editProduct) ? $product['price'] / 100 : '' ?>">
+
         <?php
-    }
-    ?>
-
-    <input type="submit" value="<?= ($editProduct) ? 'Modify' : 'Create' ?>">
-</form>
-
-<div class="list-wrapper">
-    <?php
-    foreach ($products as $product) {
+        if ($editProduct) {
+            ?>
+            <input type="hidden" name="sku" value="<?= $product['sku'] ?>">
+            <?php
+        }
         ?>
-        <div class="manage-block">
-            <p><?= $product['name'] ?></p>
-            <form method="get">
-                <input type="hidden" name="sku" value="<?= $product['sku'] ?>">
-                <input type="submit" value="Edit">
-            </form>
-            <form method="post">
-                <input type="hidden" value="<?= $product['sku'] ?>" name="toggle">
-                <input type="submit" value="<?= ($product['active'] ? 'deactivate' : 'activate') ?>">
-            </form>
-        </div>
-        <?php
-    }
-    ?>
-</div>
 
+        <input type="submit" value="<?= ($editProduct) ? 'Modify' : 'Create' ?>">
+    </form>
+
+    <div class="list-wrapper">
+        <?php
+        foreach ($products as $product) {
+            ?>
+            <div class="manage-block">
+                <p><?= $product['name'] ?></p>
+                <form method="get">
+                    <input type="hidden" name="sku" value="<?= $product['sku'] ?>">
+                    <input type="submit" value="Edit">
+                </form>
+                <form method="post">
+                    <input type="hidden" value="<?= $product['sku'] ?>" name="toggle">
+                    <input type="submit" value="<?= ($product['active'] ? 'deactivate' : 'activate') ?>">
+                </form>
+            </div>
+            <?php
+        }
+        ?>
+    </div>
+
+</main>
 </body>
 </html>

@@ -34,7 +34,7 @@ $total = 0;
 <?php
 include 'nav.php'
 ?>
-
+<main>
 <?php
 if (count($_SESSION['cart']) !== 0) {
     ?>
@@ -87,6 +87,6 @@ if (count($_SESSION['cart']) !== 0) {
 }
 ?>
 
-
+</main>
 </body>
 </html>
