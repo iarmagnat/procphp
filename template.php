@@ -26,9 +26,8 @@ function productTile($product)
     <?php
 }
 
-function cartLine($sku, $quantity)
+function cartLine($sku, $quantity, $product)
 {
-    $product = json_decode(file_get_contents('./products/' . $sku . '.json'), true);
     ?>
     <tr>
         <td>
@@ -41,10 +40,10 @@ function cartLine($sku, $quantity)
             <?= $quantity ?>
         </td>
         <td>
-            <?= $product['price'] / 100 ?>
+            <?= $product['price'] / 100 ?> $
         </td>
         <td>
-            <?= $product['price'] / 100 * $quantity ?>
+            <?= $product['price'] / 100 * $quantity ?> $
         </td>
         <td>
             <form method="post">

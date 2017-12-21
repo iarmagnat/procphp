@@ -18,6 +18,8 @@ if (isset($_POST['sku'])) {
     }
 }
 
+$total = 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +38,19 @@ include 'nav.php'
 <?php
 if (count($_SESSION['cart']) !== 0) {
     ?>
+
+    <?php
+    if (isConnected()) {
+        ?>
+        <a href="/order.php">Validate your order</a>
+        <?php
+    } else {
+        ?>
+        <p>You need to <a href="/login.php">login</a> to continue your order.</p>
+        <?php
+    }
+    ?>
+
     <table class="cart">
         <thead>
         <tr>
@@ -49,9 +64,17 @@ if (count($_SESSION['cart']) !== 0) {
         <tbody>
         <?php
         foreach ($_SESSION['cart'] as $sku => $quantity) {
-            cartLine($sku, $quantity);
+            $product = loadProduct($sku);
+            $total += $product['price'] / 100 * $quantity;
+            cartLine($sku, $quantity, $product);
         }
         ?>
+        <tr>
+            <td></td>
+            <td>Total</td>
+            <td colspan="2"></td>
+            <td><?= $total ?></td>
+        </tr>
         </tbody>
     </table>
 

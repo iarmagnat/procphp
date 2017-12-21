@@ -89,3 +89,12 @@ function createProduct($product)
     $product['active'] = false;
     saveProduct($sku, $product);
 }
+
+function order()
+{
+    $orders = json_decode(file_get_contents('./orders.json'), true);
+    $id = array_push($orders, ['cart' => $_SESSION['cart'], 'user' => $_SESSION['user']]);
+    $_SESSION['cart'] = [];
+    file_put_contents('./orders.json', json_encode($orders));
+    return $id;
+}
