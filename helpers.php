@@ -60,6 +60,13 @@ function saveProduct($sku, $product)
     file_put_contents('./products/' . $sku . '.json', json_encode($product));
 }
 
+function modifyProduct($sku, $product)
+{
+    $old = loadProduct($sku);
+    $product = $product + $old;
+    file_put_contents('./products/' . $sku . '.json', json_encode($product));
+}
+
 function getProducts($onlyActive = true)
 {
     $products = scandir('./products');

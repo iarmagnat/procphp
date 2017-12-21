@@ -2,10 +2,16 @@
 
 include_once 'helpers.php';
 
+if (!isAdmin()) {
+    header('Location: /');
+}
+
+$msg = '';
+
 if (isset($_POST['toggle'])) {
     $sku = $_POST['toggle'];
     $product = loadProduct($sku);
-    $product['active'] = ! $product['active'];
+    $product['active'] = !$product['active'];
     saveProduct($sku, $product);
 }
 
@@ -15,7 +21,20 @@ if (isset($_POST['name'])) {
     $product['description'] = $_POST['description'];
     $product['image'] = $_POST['image'];
     $product['price'] = intval(floatval($_POST['price']) * 100);
-    createProduct($product);
+    if (isset($_POST['sku'])) {
+        modifyProduct($_POST['sku'], $product);
+        $msg = 'Product modified';
+    } else {
+        createProduct($product);
+        $msg = 'Product created';
+    }
+}
+
+$editProduct = false;
+
+if (isset($_GET['sku'])) {
+    $editProduct = true;
+    $product = loadProduct($_GET['sku']);
 }
 
 $products = getProducts(false);
@@ -34,15 +53,27 @@ $products = getProducts(false);
 include 'nav.php'
 ?>
 
+
 <h1>Edit and create products.</h1>
 
-<form class="editor" method="post">
-    <input type="text" name="name" placeholder="Product name">
-    <textarea name="description" cols="30" rows="10" placeholder="description"></textarea>
-    <input type="text" name="image" placeholder="image">
-    <input type="text" name="price" placeholder="price">
+<?= $msg ?>
 
-    <input type="submit" value="Create/modify">
+<form class="editor" method="post" action="manage.php">
+    <input type="text" name="name" placeholder="Product name" value="<?= ($editProduct) ? $product['name'] : '' ?>">
+    <textarea name="description" cols="30" rows="10"
+              placeholder="description"><?= ($editProduct) ? $product['description'] : '' ?></textarea>
+    <input type="text" name="image" placeholder="image" value="<?= ($editProduct) ? $product['image'] : '' ?>">
+    <input type="text" name="price" placeholder="price" value="<?= ($editProduct) ? $product['price'] / 100 : '' ?>">
+
+    <?php
+    if ($editProduct) {
+        ?>
+        <input type="hidden" name="sku" value="<?= $product['sku'] ?>">
+        <?php
+    }
+    ?>
+
+    <input type="submit" value="<?= ($editProduct) ? 'Modify' : 'Create' ?>">
 </form>
 
 <div class="list-wrapper">
@@ -52,12 +83,12 @@ include 'nav.php'
         <div class="manage-block">
             <p><?= $product['name'] ?></p>
             <form method="get">
-                <input type="hidden" values="<?= json_encode($product) ?>">
+                <input type="hidden" name="sku" value="<?= $product['sku'] ?>">
                 <input type="submit" value="Edit">
             </form>
             <form method="post">
                 <input type="hidden" value="<?= $product['sku'] ?>" name="toggle">
-                <input type="submit" value="<?= ($product['active'] ? 'deactivate' : 'activate' ) ?>">
+                <input type="submit" value="<?= ($product['active'] ? 'deactivate' : 'activate') ?>">
             </form>
         </div>
         <?php
