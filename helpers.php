@@ -50,15 +50,35 @@ function isAdmin()
     }
 }
 
-function getProducts()
+function loadProduct($sku)
+{
+    return json_decode(file_get_contents('./products/' . $sku . '.json'), true);
+}
+
+function saveProduct($sku, $product)
+{
+    file_put_contents('./products/' . $sku . '.json', json_encode($product));
+}
+
+function getProducts($onlyActive = true)
 {
     $products = scandir('./products');
     $loaded = [];
     foreach ($products as $product) {
-        $tmp = json_decode(file_get_contents('./products/' . $product), true);
-        if ($tmp['active']) {
-            $loaded[] = $tmp;
+        if (is_file('./products/' . $product)) {
+            $tmp = json_decode(file_get_contents('./products/' . $product), true);
+            if ($tmp['active'] || !$onlyActive) {
+                $loaded[] = $tmp;
+            }
         }
     }
     return $loaded;
+}
+
+function createProduct($product)
+{
+    $sku = count(scandir('./products')) - 1;
+    $product['sku'] = $sku;
+    $product['active'] = false;
+    saveProduct($sku, $product);
 }

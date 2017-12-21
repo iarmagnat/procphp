@@ -1,8 +1,1 @@
-{
-  "name": "Red cat",
-  "price": 5000,
-  "sku": 2,
-  "description" : "I am another cute kitty, please love me too",
-  "image": "gingerkitten.jpg",
-  "active": true
-}
+{"name":"Testytest","description":"I am this product's description","image":"gingerkitten.jpg","price":2255,"sku":2,"active":true}
